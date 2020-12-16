@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		菜名:<input type="text" id="name"/>
+		<button id="btn" onclick="query()">查询</button>
+		<script src="js/jquery-3.5.1.min.js"></script>
+		<script type="text/javascript">
+			//通过不同的返回请求头获得json数据
+			function query(){
+				yourajax({
+					url:"json/emps.json",
+					type:"get",
+					success:function(res){
+					for(i in res){
+						let emp = res[i]
+						console.log(emp.ename)
+					}
+				}	
+			})
+			}
+			function yourajax(object){
+				let xhr = new XMLHttpRequest();
+				//xhr发送请求之后，回调处理
+				//编码方式:先写第一行和最后两行，再对是否成功的结果进行观察
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState==4 && xhr.status==200){
+						let data = JSON.parse(xhr.response);
+						object.success(data)
+					}
+				}
+				
+				xhr.open(object.type,object.url);
+				xhr.send()
+				
+			}
+			
+			//callback--->回调函数：该函数处理完的数据给高阶函数处理
+			//涉及函数式编程和直观的回调函数
+			function myajax(object,callback){
+				let xhr = new XMLHttpRequest();
+				//xhr发送请求之后，回调处理
+				//编码方式:先写第一行和最后两行，再对是否成功的结果进行观察
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState==4 && xhr.status==200){
+						let data = JSON.parse(xhr.response);
+						callback(data)
+					}
+				}
+
+				xhr.open(object.type,object.url);
+				xhr.send()
+				
+			}
+			
+			/* $(function(){
+				$("#btn").click(function(){
+					$.ajax({
+						//聚合函数获取数据
+						url:"http://apis.juhe.cn/cook/query.php",
+						type:"post",
+						data:{
+							menu:$("#name").val(),
+							key:"d6b7033099369be4bd92c6c9b16c0646"
+						},
+						//前后端不同ip时调用该dataType可跨域接受请求
+						dataType:"jsonp",
+						success:function(res){
+							console.log(res)
+						}
+					})
+				})
+				
+				
+				
+			}) */
+			
+		</script>
+	</body>
+</html>

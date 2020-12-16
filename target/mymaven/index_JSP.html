@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>首页</title>
+		<link rel="shortcut icon" href="#"/>
+		<link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<table class="table col-md-offset-2 col-md-8">
+			<tr>
+				<td>用户名: <span></span></td>
+				<td><input type="text" id="username" value="root" />
+				<span id="existMsg"></span>
+				</td>
+				
+			</tr>
+			<tr>
+				<td>密&nbsp;&nbsp;&nbsp;码: <span></span></td>
+				<td><input type="password" id="password" value="root"/></td>
+			</tr>
+			<tr>
+				<td><a href="javascript:void(0)" id="loginBtn" class="btn btn-success">登录</a></td>
+				<td><a href="" class="btn btn-primary">注册</a></td>
+			</tr>
+		</table>
+		<span id="loginErrMsg"></span>
+		<script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script type="text/javascript" charset="UTF-8">
+			$(function(){
+				$("#loginBtn").click(function(){
+					$.ajax({
+						url:"http://localhost:8080/mymaven/login",
+						type:"post",
+						data:{
+							"username":$("#username").val(),
+							"password":$("#password").val()
+						},
+						success:function(res){
+							let result = res
+							if(result.status==200){
+								window.location.href = "http://localhost:8080/mymaven/empByPage"
+								//放到客户端的session由浏览器提供,只能存字符串
+								//sessionStorage.setItem("current_user",res)
+								//sessionStorage.getItem("curent_user")
+								//解决一些非必要的问题，可以直接通过前端获取数据，不依靠后端，风险较大
+								//localStorage.getItem("current_user")
+							}else{
+								$("#loginErrMsg").css("color","red").text(result.msg)
+								
+							}
+						}
+					})
+				})
+				
+				
+				
+				$("#username").blur(function(){
+					$.ajax({
+						url:"http://localhost:8080/mymaven/userexist",
+						type:"post",
+						data:{
+							"username":$("#username").val()
+						},
+						success:function(res){
+							let result = res
+							console.log(res)
+							if(result.status==201){
+								$("#existMsg").css("color","pink").text(result.msg)
+								console.log(res)
+							}else{
+								$("#existMsg").css("color","red").text(result.msg)
+								console.log(res)
+							}
+						}
+					})
+				})
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			table{
+				border: solid 1px black;
+				border-radius: 5px;
+				z-index: 10;
+			}
+			tr{
+				border: solid 1px black;
+				box-sizing: border-box;
+				z-index: 20;
+			}
+			td{
+				z-index: 20;
+				padding: 5px;
+				border: solid 1px black;
+				width: 120px;
+				height: 30px;
+				text-align: center;
+			}
+			td:hover{
+				box-shadow: 3px 3px 5px lightblue;
+			}
+			tr:nth-child(even){
+				background-color: pink;
+			}
+		</style>
+	</head>
+	<body>
+		<table id="empsInfo">
+			<tr>
+				<td>empno</td>
+				<td>ename</td>
+				<td>hiredate</td>
+				<td>sal</td>
+			</tr>
+		</table>
+		<script src="js/jquery-3.5.1.min.js"></script>
+		<script type="text/javascript" charset="UTF-8">
+			$(function(){
+				$.ajax({
+					url:"json/emps.json",
+					type:"get",
+					success:function(res){
+						let emps = res
+						$table=$("#empsInfo")
+						for(i in emps){
+							let emp = emps[i]
+							$tr = $("<tr></tr>")
+							for(j in emp){
+								$td = $("<td></td>")
+								$td.text(emp[j])
+								$tr.append($td)
+							}
+							$table.append($tr)
+						}
+						//接受到的参数是object类型
+					}
+				})
+			})
+			
+		</script>
+	</body>
+</html>
