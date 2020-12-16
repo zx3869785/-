@@ -3,9 +3,9 @@ package com.oldwang.controller.report;
 import com.alibaba.fastjson.JSON;
 import com.oldwang.common.Comm;
 import com.oldwang.common.Res;
+import com.oldwang.common.SpringIOC;
 import com.oldwang.controller.vo.DeptEmpVO;
 import com.oldwang.service.dto.DeptEmpDTO;
-import com.oldwang.service.factory.ServicesFactory;
 import com.oldwang.service.iservice.IReportService;
 
 import javax.servlet.ServletException;
@@ -26,7 +26,7 @@ public class ReportDeptEmpServlet extends HttpServlet {
         BigDecimal maxSal = new BigDecimal(request.getParameter("max"));
         //assemble vo
         DeptEmpVO deptEmpVO = new DeptEmpVO(deptno,minSal,maxSal);
-        IReportService iReportService = (IReportService) ServicesFactory.getInstance(Comm.DEPT_EMP_REPORT);
+        IReportService iReportService = (IReportService) SpringIOC.getSpringIOC().getBean("reportService");
         Res<List<DeptEmpDTO>> res = iReportService.makeReportForDeptEmp(deptEmpVO);
         PrintWriter out = response.getWriter();
         out.println(JSON.toJSONString(res));

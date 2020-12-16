@@ -1,8 +1,8 @@
 package com.oldwang.controller;
 
 import com.oldwang.common.Comm;
+import com.oldwang.common.SpringIOC;
 import com.oldwang.dao.entity.Emp;
-import com.oldwang.service.factory.ServicesFactory;
 import com.oldwang.service.iservice.IEmpService;
 
 import javax.servlet.ServletException;
@@ -38,7 +38,7 @@ public class EmpFindByPageServlet extends HttpServlet {
             size = Integer.parseInt(sizeParam);
         }
         //2、处理
-        IEmpService empService = (IEmpService) ServicesFactory.getInstance(Comm.EMP);
+        IEmpService empService = (IEmpService) SpringIOC.getSpringIOC().getBean("empService");
         List<Emp> emps = empService.findByPage(page,size);
 
         //3、反馈-JAVA模板引擎

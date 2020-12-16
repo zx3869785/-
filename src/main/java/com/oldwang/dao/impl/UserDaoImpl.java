@@ -3,12 +3,14 @@ package com.oldwang.dao.impl;
 import com.oldwang.dao.entity.User;
 import com.oldwang.dao.idao.IUserDao;
 import com.oldwang.dao.util.DBUtil;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Repository("userDao")
 public class UserDaoImpl implements IUserDao {
 
     @Override

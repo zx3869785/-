@@ -1,8 +1,8 @@
 package com.oldwang.controller;
 
 import com.oldwang.common.Comm;
+import com.oldwang.common.SpringIOC;
 import com.oldwang.dao.entity.Emp;
-import com.oldwang.service.factory.ServicesFactory;
 import com.oldwang.service.iservice.IEmpService;
 
 import javax.servlet.ServletException;
@@ -19,7 +19,7 @@ import java.util.List;
 public class EmpFindByIdServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int empno = Integer.parseInt(request.getParameter("empno"));
-        IEmpService empService = (IEmpService) ServicesFactory.getInstance(Comm.EMP);
+        IEmpService empService = (IEmpService) SpringIOC.getSpringIOC().getBean("empService");
         Emp emp = empService.findById(empno);
 
         //3、反馈-JAVA模板引擎
@@ -38,7 +38,7 @@ public class EmpFindByIdServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int empno = Integer.parseInt(request.getParameter("empno"));
-        IEmpService empService = (IEmpService) ServicesFactory.getInstance(Comm.EMP);
+        IEmpService empService = (IEmpService) SpringIOC.getSpringIOC().getBean("empService");
         Emp emp = empService.findById(empno);
         //3、反馈-JAVA模板引擎
         if (emp!=null){

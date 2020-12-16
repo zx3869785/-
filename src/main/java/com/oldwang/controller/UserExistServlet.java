@@ -3,7 +3,7 @@ package com.oldwang.controller;
 import com.alibaba.fastjson.JSON;
 import com.oldwang.common.Comm;
 import com.oldwang.common.Res;
-import com.oldwang.service.factory.ServicesFactory;
+import com.oldwang.common.SpringIOC;
 import com.oldwang.service.iservice.IUserService;
 
 import java.io.IOException;
@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -25,7 +26,7 @@ public class UserExistServlet extends HttpServlet {
         response.setContentType("application/json");
         //2、处理
         //从IUserService接口调用工厂模式ServiceFactor的getInstance方法
-        IUserService userService = (IUserService) ServicesFactory.getInstance(Comm.USER);
+        IUserService userService = (IUserService) SpringIOC.getSpringIOC().getBean("userService");
         //进入到impl实现类的逻辑方法中
         Res res = userService.userExist(username);
         //3、反馈

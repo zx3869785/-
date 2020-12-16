@@ -3,7 +3,7 @@ package com.oldwang.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.oldwang.common.Comm;
 import com.oldwang.common.Res;
-import com.oldwang.service.factory.ServicesFactory;
+import com.oldwang.common.SpringIOC;
 import com.oldwang.service.iservice.IUserService;
 import junit.framework.TestCase;
 import org.apache.log4j.Logger;
@@ -19,7 +19,7 @@ public class UserServiceImplTest extends TestCase {
 
     @Before
     public void setUp(){
-        userService = (IUserService) ServicesFactory.getInstance(Comm.USER);
+        userService = (IUserService) SpringIOC.getSpringIOC().getBean("userService");
     }
 
     @Test

@@ -5,6 +5,7 @@ import com.oldwang.dao.entity.Dept;
 import com.oldwang.dao.idao.IReportDao;
 import com.oldwang.dao.util.DBUtil;
 import com.oldwang.service.dto.DeptEmpDTO;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository("reprotDao")
 public class ReportDaoImpl implements IReportDao {
     @Override
     public List<DeptEmpDTO> makeReportForDeptEmp(DeptEmpVO deptEmpVO) throws Exception {

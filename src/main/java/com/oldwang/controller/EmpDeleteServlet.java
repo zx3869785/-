@@ -3,8 +3,8 @@ package com.oldwang.controller;
 import com.alibaba.fastjson.JSON;
 import com.oldwang.common.Comm;
 import com.oldwang.common.Res;
+import com.oldwang.common.SpringIOC;
 import com.oldwang.dao.entity.Emp;
-import com.oldwang.service.factory.ServicesFactory;
 import com.oldwang.service.iservice.IEmpService;
 import lombok.SneakyThrows;
 
@@ -26,7 +26,7 @@ public class EmpDeleteServlet extends HttpServlet {
         //根据所在行的编号进行删除
         int empno = Integer.parseInt(request.getParameter("empno"));
         //2、处理
-        IEmpService empService = (IEmpService) ServicesFactory.getInstance(Comm.EMP);
+        IEmpService empService = (IEmpService) SpringIOC.getSpringIOC().getBean("empService");
         Emp emp = new Emp();
         emp.setEmpno(empno);
         String msg = empService.deleteEmp(emp);

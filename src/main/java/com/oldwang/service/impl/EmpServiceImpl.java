@@ -6,19 +6,17 @@ import com.oldwang.common.ResEnum;
 import com.oldwang.controller.vo.DelVO;
 import com.oldwang.dao.entity.Dept;
 import com.oldwang.dao.entity.Emp;
-import com.oldwang.dao.factory.DaoFactory;
 import com.oldwang.dao.idao.IEmpDao;
 import com.oldwang.service.iservice.IEmpService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service("empService")
 public class EmpServiceImpl implements IEmpService {
-
+    @Autowired
     IEmpDao empDao;
-
-    public EmpServiceImpl(){
-        empDao = (IEmpDao) DaoFactory.getInstance(Comm.EMP);
-    }
 
     @Override
     public List<Emp> findByPage(int page, int size) {

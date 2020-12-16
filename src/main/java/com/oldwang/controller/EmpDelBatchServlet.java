@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.oldwang.common.Comm;
 import com.oldwang.common.Res;
+import com.oldwang.common.SpringIOC;
 import com.oldwang.controller.vo.DelVO;
-import com.oldwang.service.factory.ServicesFactory;
 import com.oldwang.service.iservice.IEmpService;
 
 import javax.servlet.ServletException;
@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class EmpDelBatchServlet extends HttpServlet {
         String empnos = request.getParameter("empnos");
         //将获取的字符串转为集合
         List<DelVO> delVOList = JSON.parseObject(empnos,new TypeReference<List<DelVO>>(){});
-        IEmpService empService = (IEmpService) ServicesFactory.getInstance(Comm.EMP);
+        IEmpService empService = (IEmpService) SpringIOC.getSpringIOC().getBean("empService");
         Res res = empService.delBatch(delVOList);
         PrintWriter out = response.getWriter();
         out.println(JSON.toJSONString(res));

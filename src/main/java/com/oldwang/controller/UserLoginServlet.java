@@ -3,8 +3,8 @@ package com.oldwang.controller;
 import com.alibaba.fastjson.JSON;
 import com.oldwang.common.Comm;
 import com.oldwang.common.Res;
+import com.oldwang.common.SpringIOC;
 import com.oldwang.dao.entity.User;
-import com.oldwang.service.factory.ServicesFactory;
 import com.oldwang.service.iservice.IUserService;
 
 import javax.servlet.ServletException;
@@ -27,7 +27,7 @@ public class UserLoginServlet extends HttpServlet {
         response.setContentType("application/json");
         //2、处理
         User user = new User(username,password);
-        IUserService userService = (IUserService) ServicesFactory.getInstance(Comm.USER);
+        IUserService userService = (IUserService) SpringIOC.getSpringIOC().getBean("userService");
         Res<User> res = userService.login(user);
         //获取网页存储的数据
         HttpSession session = request.getSession();

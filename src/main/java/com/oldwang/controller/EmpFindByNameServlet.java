@@ -1,8 +1,8 @@
 package com.oldwang.controller;
 
 import com.oldwang.common.Comm;
+import com.oldwang.common.SpringIOC;
 import com.oldwang.dao.entity.Emp;
-import com.oldwang.service.factory.ServicesFactory;
 import com.oldwang.service.iservice.IEmpService;
 
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ import java.util.List;
 public class EmpFindByNameServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String ename = request.getParameter("ename");
-        IEmpService empService = (IEmpService) ServicesFactory.getInstance(Comm.EMP);
+        IEmpService empService = (IEmpService) SpringIOC.getSpringIOC().getBean("empService");
         List<Emp> emps = empService.findByName(ename);
 
         //3、反馈-JAVA模板引擎

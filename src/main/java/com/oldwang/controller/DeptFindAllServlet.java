@@ -3,8 +3,8 @@ package com.oldwang.controller;
 import com.alibaba.fastjson.JSON;
 import com.oldwang.common.Comm;
 import com.oldwang.common.Res;
+import com.oldwang.common.SpringIOC;
 import com.oldwang.dao.entity.Dept;
-import com.oldwang.service.factory.ServicesFactory;
 import com.oldwang.service.iservice.IDeptService;
 
 import javax.servlet.ServletException;
@@ -22,7 +22,7 @@ public class DeptFindAllServlet extends HttpServlet {
         //response.setContentType("text/plain");
         //response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        IDeptService deptService = (IDeptService) ServicesFactory.getInstance(Comm.DEPT);
+        IDeptService deptService = (IDeptService) SpringIOC.getSpringIOC().getBean("deptService");
         Res<List<Dept>> res = deptService.findAll();
         PrintWriter out = response.getWriter();
         out.println(JSON.toJSONString(res));

@@ -4,18 +4,18 @@ import com.oldwang.common.Comm;
 import com.oldwang.common.Res;
 import com.oldwang.common.ResEnum;
 import com.oldwang.dao.entity.Dept;
-import com.oldwang.dao.factory.DaoFactory;
 import com.oldwang.dao.idao.IDeptDao;
 import com.oldwang.service.iservice.IDeptService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service("deptService")
 public class DeptServiceImpl implements IDeptService {
+    @Autowired
     IDeptDao deptDao;
-    public DeptServiceImpl() {
-        deptDao= (IDeptDao) DaoFactory.getInstance(Comm.DEPT);
-    }
 
     @Override
     public Res<List<Dept>> findAll() {

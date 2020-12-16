@@ -4,18 +4,15 @@ import com.oldwang.common.Comm;
 import com.oldwang.common.Res;
 import com.oldwang.common.ResEnum;
 import com.oldwang.dao.entity.User;
-import com.oldwang.dao.factory.DaoFactory;
 import com.oldwang.dao.idao.IUserDao;
 import com.oldwang.service.iservice.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("userService")
 public class UserServiceImpl implements IUserService {
-
+    @Autowired
     IUserDao userDao;
-
-    public UserServiceImpl(){
-        //创建Dao层接口和工厂模式、业务类
-        userDao = (IUserDao) DaoFactory.getInstance(Comm.USER);
-    }
 
     @Override
     public Res userExist(String username) {

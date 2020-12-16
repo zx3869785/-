@@ -6,11 +6,13 @@ import com.oldwang.controller.vo.DelVO;
 import com.oldwang.dao.entity.Emp;
 import com.oldwang.dao.idao.IEmpDao;
 import com.oldwang.dao.util.DBUtil;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository("empDao")
 public class EmpDaoImpl implements IEmpDao {
 
     @Override
