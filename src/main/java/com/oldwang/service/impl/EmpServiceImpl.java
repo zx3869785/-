@@ -10,6 +10,9 @@ import com.oldwang.dao.idao.IEmpDao;
 import com.oldwang.service.iservice.IEmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +21,7 @@ public class EmpServiceImpl implements IEmpService {
     @Autowired
     IEmpDao empDao;
 
+   // @Transactional(readOnly = false,isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
     @Override
     public List<Emp> findByPage(int page, int size) {
         List<Emp> emps = null;
