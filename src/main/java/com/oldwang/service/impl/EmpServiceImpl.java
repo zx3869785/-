@@ -4,22 +4,18 @@ import com.oldwang.common.Comm;
 import com.oldwang.common.Res;
 import com.oldwang.common.ResEnum;
 import com.oldwang.controller.vo.DelVO;
-import com.oldwang.dao.entity.Dept;
 import com.oldwang.dao.entity.Emp;
-import com.oldwang.dao.idao.IEmpDao;
+import com.oldwang.dao.EmpDao;
 import com.oldwang.service.iservice.IEmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service("empService")
 public class EmpServiceImpl implements IEmpService {
     @Autowired
-    IEmpDao empDao;
+    EmpDao empDao;
 
    // @Transactional(readOnly = false,isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
     @Override
@@ -109,7 +105,7 @@ public class EmpServiceImpl implements IEmpService {
             return Res.error(ResEnum.ERROR_PARAMS_IN_DELBATCH);
         }
         try {
-            empDao.delBatch(delVOList);
+            //empDao.delBatch(delVOList);
             return Res.success(ResEnum.SUCCESS_DEL_BATCH);
         } catch (Exception e) {
             e.printStackTrace();

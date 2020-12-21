@@ -1,10 +1,9 @@
 package com.oldwang.service.impl;
 
-import com.oldwang.common.Comm;
 import com.oldwang.common.Res;
 import com.oldwang.common.ResEnum;
 import com.oldwang.dao.entity.User;
-import com.oldwang.dao.idao.IUserDao;
+import com.oldwang.dao.UserDao;
 import com.oldwang.service.iservice.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service("userService")
 public class UserServiceImpl implements IUserService {
     @Autowired
-    IUserDao userDao;
+    UserDao userDao;
 
     @Override
     public Res userExist(String username) {

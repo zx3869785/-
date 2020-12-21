@@ -13,7 +13,7 @@ public class DBUtilTest extends TestCase {
 
     @Test
     public void testGetConnection() throws Exception {
-        Connection con1 = DBUtil.getConnection();
+        /*Connection con1 = DBUtil.getConnection();
 
         String username = "root";
         int flag = 0;
@@ -33,5 +33,6 @@ public class DBUtilTest extends TestCase {
 
         //System.out.println(DBUtil.getDs());
         System.out.println(con2);
+    }*/
     }
 }

@@ -1,6 +1,5 @@
 package com.oldwang.ssm.mybaties.dao;
 
-import com.oldwang.ssm.mybaties.entity.User;
 import junit.framework.TestCase;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -11,13 +10,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class UserDaoTest {
-    @Autowired
+    /*@Autowired
     UserDao userDao;
 
     @Test
@@ -57,14 +55,15 @@ public class UserDaoTest {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         User user = new User();
         user.setId(4);
-        user.setUsername("kangshifu");
+        user.setUsername("nongfudiquan");
         user.setSal(new BigDecimal("7000"));
         user.setBirthday(sdf.parse("1996-10-15"));
         userDao.update(user);
+
     }
 
     @Test
     public void delete(){
         userDao.delete(4);
-    }
+    }*/
 }
