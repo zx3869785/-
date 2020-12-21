@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oldwang.dao.EmpDao" >
+    <!--设置domain类和数据库中表的字段一一对应，注意数据库字段和domain类中的字段名称不致，此处一定要！-->
+    <!--map信息,供paramerMap或resultMap使用,且字段应与数据库中字段相同（标准）-->
+    <resultMap id="empResultMap" type="com.oldwang.dao.entity.Emp">
+        <id column="EMPNO" property="empno" jdbcType="INTEGER"></id>
+        <result column="ENAME" property="ename" jdbcType="VARCHAR"></result>
+        <result column="HIREDATE" property="hiredate" jdbcType="DATE"></result>
+        <result column="SAL" property="sal" jdbcType="DECIMAL"></result>
+    </resultMap>
+    <!--sql片段,该片段使用频率较高时,直接使用<include refid="#id">使用-->
+    <sql id="AllEmpColumns">
+        empno,ename,hiredate,sal
+    </sql>
+    <!--执行sql语句#{参数}调用dao层传来的参数-->
+    <insert id="save" parameterType="com.oldwang.dao.EmpDao">
+        insert into emp(empno,ename,hiredate,sal) values(#{empno},#{ename},#{hiredate},#{sal})
+    </insert>
+
+    <update id="update" parameterType="com.oldwang.dao.EmpDao">
+        update emp
+        set ename=#{ename},hiredate=#{hiredate},sal=#{sal}
+        where empno=#{empno}
+    </update>
+    <!--传来的对象直接可以调用-->
+    <delete id="delete" parameterType="com.oldwang.dao.EmpDao">
+        delete from emp where empno=#{empno}
+    </delete>
+    <select id="findByPage" parameterType="map" resultType="com.oldwang.dao.entity.Emp">
+        select
+            <include refid="AllEmpColumns"/>
+        from emp
+        limit #{start},#{size}
+    </select>
+    <select id="findByName" parameterType="map" resultType="com.oldwang.dao.entity.Emp">
+        select
+            <include refid="AllEmpColumns"/>
+        from emp
+        where ename like concat('%',#{name},'%')
+    </select>
+    <select id="findById" parameterType="map" resultType="com.oldwang.dao.entity.Emp">
+        select
+            <include refid="AllEmpColumns"/>
+        from emp
+        where empno=#{empno}
+    </select>
+    <select id="findByDept" parameterType="integer" resultType="com.oldwang.dao.entity.Emp">
+        select
+            <include refid="AllEmpColumns"/>
+        from emp
+        where deptno=#{deptno}
+    </select>
+    <!--&lt;和&gt;分别代表‘<’和‘>’号,因为可能会读取为<>-->
+    <!--fail to load applicationContext.xml是因为mapper中的语句错误-->
+    <!--动态sql,加where可省略where1=1，因为忽略掉了第一个and-->
+    <select id="findByCon" parameterType="map" resultType="com.oldwang.dao.entity.Emp">
+        select
+            <include refid="AllEmpColumns"/>
+        from emp
+        <where>
+            <if test="ename!=null and ename.trim()!=''">
+                and ename like concat('%',#{ename},'%')
+            </if>
+            <if test="hiredate!=null">
+                and hiredate&lt;#{hiredate}
+            </if>
+            <if test="sal!=null">
+                and sal&gt;#{sal}
+            </if>
+        </where>
+
+    </select>
+    <!--<set>动态更新列,且能够自动抹掉’，‘</set>-->
+    <update id="dynamicUpdate">
+        update emp
+        <set>
+            <if test="ename!=null and ename!=''">
+                ename=#{ename},
+            </if>
+            <if test="hiredate!=null ">
+                hiredate=#{hiredate},
+            </if>
+            <if test="sal!=null ">
+                sal=#{sal},
+            </if>
+        </set>
+        where empno=#{empno}
+    </update>
+    <!--foreach-->
+    <delete id="delBatch">
+        delete from emp where empno in
+        <foreach collection="list" index="ids"
+                 open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </delete>
+    <insert id="insBatch">
+        insert into emp(empno,ename,hiredate,sal) values
+        <foreach collection="list" separator="," item="empitem">
+            (#{empitem.empno},#{empitem.ename},#{empitem.hiredate},#{empitem.sal})
+        </foreach>
+    </insert>
+</mapper>

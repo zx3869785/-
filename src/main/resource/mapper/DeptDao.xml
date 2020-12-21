@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oldwang.dao.DeptDao" >
+    <!--设置domain类和数据库中表的字段一一对应，注意数据库字段和domain类中的字段名称不致，此处一定要！-->
+    <resultMap id="DeptResultMap" type="com.oldwang.dao.entity.Dept">
+        <id column="DEPTNO" property="deptno" jdbcType="INTEGER"></id>
+        <result column="DNAME" property="dname" jdbcType="VARCHAR"></result>
+        <result column="LOC" property="loc" jdbcType="VARCHAR"></result>
+    </resultMap>
+    <!--sql片段,该片段使用频率较高时-->
+    <sql id="AllUserColumns">
+        deptno,dname
+    </sql>
+    <select id="findAll"  resultMap="DeptResultMap">
+        select
+            <include refid="AllUserColumns"/>
+        from dept
+    </select>
+</mapper>
